@@ -37,6 +37,7 @@ class Game < ActiveRecord::Base
     if w == word.text
       update_attribute :masked_word, w
     end
+    guesses.create! :user => user, :letter => w, :hit => true
   end
       
   
