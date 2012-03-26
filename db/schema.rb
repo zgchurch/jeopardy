@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120325142732) do
+ActiveRecord::Schema.define(:version => 20120326205948) do
 
   create_table "games", :force => true do |t|
     t.integer  "word_id"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(:version => 20120325142732) do
 
   add_index "guesses", ["game_id"], :name => "index_guesses_on_game_id"
   add_index "guesses", ["user_id"], :name => "index_guesses_on_user_id"
+
+  create_table "plays", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "game_id"
+    t.integer  "score",      :default => 0, :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "plays", ["game_id"], :name => "index_plays_on_game_id"
+  add_index "plays", ["user_id"], :name => "index_plays_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
