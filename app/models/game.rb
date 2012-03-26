@@ -30,6 +30,10 @@ class Game < ActiveRecord::Base
         hit = true
       end
     end
+    if new_masked_word == word.text
+      play_for(user).update_attribute(:score, play_for(user).score + 5)
+    end
+
     if hit
       play_for(user).update_attribute(:score, play_for(user).score + 1)
     else
@@ -55,7 +59,7 @@ class Game < ActiveRecord::Base
   end
   
   def complete?
-    guesses.count >= 4
+    guesses.count >= 4 || winner?
   end
   
   def winner?
