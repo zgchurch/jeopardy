@@ -11,15 +11,11 @@ class GuessesController < ApplicationController
     
     
   def win
-    if @game.complete?
-      
-      
       if @game.winner?
         flash.notice = "You won! You're pretty much a pro."
-      else
+      elsif @game.complete?
         flash.notice = "You lost! --with #{@game.guesses.wrong.count} wrong guesses"
       end
-    end
     redirect_to @game
   end
   

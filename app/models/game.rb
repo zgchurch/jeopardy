@@ -13,7 +13,7 @@ class Game < ActiveRecord::Base
 
   def generate_masked_word
     positions = []
-    positions = (positions + [rand(word.text.length)]).uniq until positions.length == 4
+    positions = (positions + [rand(word.text.length)]).uniq until positions.length == 6
     masked_word = word.text.gsub(/./, '*')
     positions.each {|n| masked_word[n] = word.text[n] }
     self.masked_word = masked_word
