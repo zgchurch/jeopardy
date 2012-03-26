@@ -4,11 +4,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    if params[:id]
-      @game = Game.find(params[:id])
-    else
-      redirect_to current_user.games.last
-    end
+    @game = Game.find(params[:id])
     @guess = Guess.new
   end
 end
