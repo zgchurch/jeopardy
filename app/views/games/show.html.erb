@@ -7,11 +7,11 @@
 <p>
 	<b>Hint:</b>
 	<%= @game.word.meaning %>
+	<b> Score: </b>
+	<%= @game.plays[0].score%>
 	<% if @game.guesses.count >=3 %>
 	<br/>
 	<b>Guess the word!</b>
-	<% else %>
-	  
 	<% end %>
 </p>
 

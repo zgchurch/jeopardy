@@ -1,6 +1,8 @@
 class Game < ActiveRecord::Base
   belongs_to :word
-  has_and_belongs_to_many :users
+  #has_and_belongs_to_many :users
+  has_many :plays
+  has_many :users, :through => :plays
   has_many :guesses 
 
   validates_presence_of :word
@@ -28,18 +30,29 @@ class Game < ActiveRecord::Base
         hit = true
       end
     end
+    if hit
+      play_for(user).update_attribute(:score, play_for(user).score + 1)
+    else
+      play_for(user).update_attribute(:score, play_for(user).score - 1)
+    end
     reload
     update_attribute :masked_word, new_masked_word
     guesses.create! :user => user, :letter => letter, :hit => hit
   end
   
   def guess_word(user, w)
+    hit = false
     if w == word.text
       update_attribute :masked_word, w
+      hit = true
+      play_for(user).update_attribute(:score, play_for(user).score + 5)
     end
-    guesses.create! :user => user, :letter => w, :hit => true
+    guesses.create! :user => user, :letter => w, :hit => hit
   end
-      
+  
+  def play_for(user)
+    plays.where(:user_id => user.id).first
+  end
   
   def complete?
     guesses.count >= 4
