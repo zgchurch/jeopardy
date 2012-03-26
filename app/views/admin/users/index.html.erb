@@ -1,0 +1,19 @@
+<h1>Manage Users</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Username</th>
+    <th>Email</th>
+  </tr>
+  
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= link_to "Edit", [:edit, :admin, user] %></td>
+      <td><%= user.username %></td>
+      <td><%= user.email %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Add user", new_admin_user_path %>

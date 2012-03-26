@@ -1,0 +1,13 @@
+<%= @game.masked_word %>
+
+<%= form_for [@game, @guess] do |g| %>
+  <%= g.text_field :letter %>
+<% end %>
+
+<p>
+  <b>Guesses:</b>
+  <ul>
+    <% @game.guesses.each do |guess| %>
+      <li><%= guess.letter %></li>
+    <% end %>
+  </ul>
