@@ -5,9 +5,21 @@
 <% end %>
 
 <p>
+	<b>Hint:</b>
+	<%= @game.word.meaning %>
+	<% if @game.guesses.count >=3 %>
+	<br/>
+	<b>Guess the word!</b>
+	<% else %>
+	  
+	<% end %>
+</p>
+
+<p>
   <b>Guesses:</b>
   <ul>
     <% @game.guesses.each do |guess| %>
       <li><%= guess.letter %></li>
     <% end %>
   </ul>
+</p>
