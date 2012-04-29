@@ -1,0 +1,16 @@
+%h1 New challenge
+
+- if (User.online - [current_user]).any?
+  = form_for @challenge do |c|
+    %div
+      = c.label :challengee, "Who would you like to challenge?"
+      = c.collection_select :challengee_id, (User.active.where(:status => 'online') - [current_user]), :id, :username_with_score
+
+    %div
+      = c.label :message, "Anything you want to tell them?"
+      = c.text_field :message
+
+    %div
+      = c.submit "Challenge"
+- else
+  %p There are currently no other users online and free to start a game.

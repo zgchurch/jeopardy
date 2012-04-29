@@ -1,0 +1,36 @@
+= @game.masked_word
+
+- if @game.complete?
+  %p This game is complete! #{@game.winner} was the winner.
+- else
+  - if current_user == @game.current_player
+    %p
+      - if @game.guesses.by(current_user).count >=3
+        %b You must guess the word!
+
+    = form_for [@game, @guess] do |g|
+      = g.text_field :letter
+
+    %p
+      %b Hint:
+      = @game.word.meaning
+  - else
+    %p
+      It's currently the other player's turn.
+
+- @game.users.each do |user|
+  %div{:style => "float:left;width: 50%;"}
+    %h3= user
+    %p
+      Current score: #{@game.play_for(user).score}
+
+    %p
+      %b Guesses:
+      %ul
+        - @game.guesses.by(user).each do |guess|
+          %li
+            = guess.letter
+            - if guess.hit
+              (correct; +1)
+            - else
+              (incorrect; -1)

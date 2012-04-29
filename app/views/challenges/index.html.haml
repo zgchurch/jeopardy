@@ -1,0 +1,15 @@
+%h1 Challenges
+
+%h2 People challenging you
+%ul
+  - current_user.challenges.each do |challenge|
+    %li
+      = challenge
+      = link_to "Accept", challenge, :method => :put
+
+
+%h2 People you're challenging
+%ul
+  - current_user.sent_challenges.each do |challenge|
+    %li= challenge
+

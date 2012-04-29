@@ -5,6 +5,8 @@ gem 'mysql2'
 gem 'jquery-rails'
 gem 'devise'
 gem 'seed-fu'
+gem 'haml'
+# gem 'ruby-debug19', :require => 'ruby-debug'
 
 
 # Gems used only for assets and not required

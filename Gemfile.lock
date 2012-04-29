@@ -54,6 +54,7 @@ GEM
     erubis (2.7.0)
     execjs (1.3.0)
       multi_json (~> 1.0)
+    haml (3.1.4)
     highline (1.6.11)
     hike (1.2.1)
     i18n (0.6.0)
@@ -142,6 +143,7 @@ DEPENDENCIES
   capistrano
   coffee-rails (~> 3.2.1)
   devise
+  haml
   jbuilder
   jquery-rails
   mysql2

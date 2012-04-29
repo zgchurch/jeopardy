@@ -1,0 +1,9 @@
+%h1 Leaderboard
+
+%ul
+  - @users.each do |user|
+    %li
+      = user
+      (#{user.total_score} pts)
+      &dash;
+      = user.status

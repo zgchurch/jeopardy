@@ -5,6 +5,7 @@
     <th></th>
     <th>Username</th>
     <th>Email</th>
+    <th>Status</th>
   </tr>
   
   <% @users.each do |user| %>
@@ -12,6 +13,12 @@
       <td><%= link_to "Edit", [:edit, :admin, user] %></td>
       <td><%= user.username %></td>
       <td><%= user.email %></td>
+      <td><%= user.status %></td>
+      <td><%= link_to "History", admin_user_history_path(user) %></td>
+      <td><%= link_to "Analyze", admin_user_analyze_path(user) %></td>
+      <% if ['online', 'in a game'].include? user.status %>
+        <td><%= link_to "Logoff", admin_user_path(user, :user => {:status => 'kick_off'}), :method => :put %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>

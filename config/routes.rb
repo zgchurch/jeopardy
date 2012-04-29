@@ -2,12 +2,18 @@ Jeopardy::Application.routes.draw do
   devise_for :users
 
   namespace :admin do
-    resources :users
+    resources :users do
+      get :history
+      get :analyze
+    end
   end
 
   resources :games do
     resources :guesses
   end
+
+  resources :challenges
+  resource :leaderboard
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

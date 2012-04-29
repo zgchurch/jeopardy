@@ -11,21 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120326205948) do
+ActiveRecord::Schema.define(:version => 20120429020038) do
+
+  create_table "challenges", :force => true do |t|
+    t.integer  "challenger_id"
+    t.integer  "challengee_id"
+    t.string   "message"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "challenges", ["challengee_id"], :name => "index_challenges_on_challengee_id"
+  add_index "challenges", ["challenger_id"], :name => "index_challenges_on_challenger_id"
 
   create_table "games", :force => true do |t|
     t.integer  "word_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "masked_word"
+    t.integer  "winner_id"
+    t.integer  "current_player_id"
   end
 
+  add_index "games", ["current_player_id"], :name => "index_games_on_current_player_id"
+  add_index "games", ["winner_id"], :name => "index_games_on_winner_id"
   add_index "games", ["word_id"], :name => "index_games_on_word_id"
-
-  create_table "games_users", :force => true do |t|
-    t.integer "game_id"
-    t.integer "user_id"
-  end
 
   create_table "guesses", :force => true do |t|
     t.integer  "user_id"
@@ -51,8 +61,8 @@ ActiveRecord::Schema.define(:version => 20120326205948) do
   add_index "plays", ["user_id"], :name => "index_plays_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                 :default => "",        :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",        :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -68,12 +78,16 @@ ActiveRecord::Schema.define(:version => 20120326205948) do
     t.string   "country"
     t.string   "name"
     t.string   "phone"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+    t.string   "status",                                :default => "offline", :null => false
+    t.datetime "deleted_at"
+    t.boolean  "admin",                                 :default => false,     :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["status"], :name => "index_users_on_status"
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   create_table "words", :force => true do |t|

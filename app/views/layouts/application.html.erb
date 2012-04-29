@@ -12,10 +12,17 @@
 
   <% if current_user %>
     <ul>
+      <li><%= link_to "Home (#{current_user.games.reject(&:complete?).count} open games)", root_path %></li>
       <li><%= link_to "Edit profile", edit_user_registration_path %></li>
-      <li><%= link_to "New game", games_path, :method => :post %></li>
-      <li><%= link_to "Resume game", current_user.games.last %></li>
-      <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+      <li><%= link_to "New single-player game", games_path, :method => :post %></li>
+      <li><%= link_to "New multi-player game", new_challenge_path %></li>
+      <li><%= link_to "Challenges (#{current_user.challenges.count})", challenges_path %></li>
+      <li><%= link_to "Leaderboard", leaderboard_path %></li>
+      <% if current_user.admin? %>
+        <li><%= link_to "Administrate users", admin_users_path %></li>
+      <% end %>
+      <li><%= link_to "Logout #{current_user}", destroy_user_session_path, :method => :delete %></li>
+      <li>Your current status: <%= current_user.status %></li>
     </ul>
   <% end %>
 

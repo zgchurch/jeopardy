@@ -1,6 +1,8 @@
 class Admin::UsersController < ApplicationController
+  before_filter :authorize_admin!
+
   def index
-    @users = User.all
+    @users = User.active.order('username')
   end
   
   def new
@@ -35,10 +37,24 @@ class Admin::UsersController < ApplicationController
       render :edit
     end
   end
+
+  def history
+    @user = User.find(params[:user_id])
+  end
+  
+  def analyze
+    @user = User.find(params[:user_id])
+  end
   
   def destroy
     User.find(params[:id]).destroy
     
     redirect_to admin_users_path
+  end
+
+  def authorize_admin!
+    unless current_user.admin?
+      redirect_to root_path, :alert => 'You do not have permission to view that page.'
+    end
   end
 end

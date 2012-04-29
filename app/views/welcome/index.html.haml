@@ -1,0 +1,11 @@
+%h1 Welcome, #{current_user}
+
+%p Member since #{current_user.created_at.to_date}
+
+%p Total score: #{current_user.total_score}
+
+%h2 Currently open games:
+
+%ul
+  - current_user.games.reject(&:complete?).each do |game|
+    %li= link_to game, game
