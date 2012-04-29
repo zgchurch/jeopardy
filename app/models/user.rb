@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 
   has_many :plays
   has_many :games, :through => :plays
+  has_many :single_player_games, :through => :plays
+  has_many :multi_player_games, :through => :plays
   has_many :guesses
   has_many :challenges, :foreign_key => 'challengee_id'
   has_many :sent_challenges, :class_name => 'Challenge', :foreign_key => 'challenger_id'

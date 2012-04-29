@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   def create
-    redirect_to current_user.games.create(:current_player => current_user)
+    redirect_to current_user.single_player_games.create(:current_player => current_user)
   end
 
   def show

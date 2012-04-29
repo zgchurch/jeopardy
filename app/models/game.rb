@@ -10,6 +10,11 @@ class Game < ActiveRecord::Base
   before_validation :choose_word, :on => :create
   before_validation :generate_masked_word, :on => :create
 
+  # For routing
+  def self.model_name
+    ActiveModel::Name.new(Game)
+  end
+
   def choose_word
     self.word = Word.random
   end
@@ -40,11 +45,7 @@ class Game < ActiveRecord::Base
       end
     end
 
-    if hit
-      play_for(user).update_attribute(:score, play_for(user).score + 1)
-    else
-      play_for(user).update_attribute(:score, play_for(user).score - 1)
-    end
+    update_score_after_guess(user, hit)
 
     reload
     update_attribute :masked_word, new_masked_word
@@ -57,30 +58,20 @@ class Game < ActiveRecord::Base
     if w == word.text
       update_attribute :masked_word, w
       hit = true
-      play_for(user).update_attribute(:score, play_for(user).score + 5)
     end
     guesses.create! :user => user, :letter => w, :hit => hit
-    check_complete
+    check_complete user
   end
 
   def check_complete(user)
     if complete? && masked_word == word.text
       update_attribute :winner, user
-      plays.each do |play|
-        if play.user == user
-          play.update_attribute(:score, play.score + 10)
-        else
-          play.update_attribute(:score, play.score - 5)
-        end
-      end
+      update_score_end_of_game(user)
     end
   end
   
   def play_for(user)
     plays.where(:user_id => user.id).first
   end
-  
-  def complete?
-    users.map{|u| guesses.by(u).count > 3 }.all? || masked_word == word.text
-  end
+
 end

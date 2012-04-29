@@ -28,6 +28,14 @@
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
 
+  <% if @user.admin %>
+    <div><%= f.label :name %><br />
+    <%= f.text_field :name %></div>
+
+    <div><%= f.label :phone %><br />
+    <%= f.text_field :phone %></div>
+  <% end %>
+
   <div><%= f.label :password %><br />
   <%= f.password_field :password %></div>
 

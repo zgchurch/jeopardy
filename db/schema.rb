@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120429020038) do
+ActiveRecord::Schema.define(:version => 20120429121600) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "challenger_id"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20120429020038) do
     t.string   "masked_word"
     t.integer  "winner_id"
     t.integer  "current_player_id"
+    t.string   "type"
   end
 
   add_index "games", ["current_player_id"], :name => "index_games_on_current_player_id"

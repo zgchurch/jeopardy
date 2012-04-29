@@ -1,11 +1,16 @@
 = @game.masked_word
 
 - if @game.complete?
-  %p This game is complete! #{@game.winner} was the winner.
+  %p
+    This game is complete!
+    - if @game.winner
+      #{@game.winner} was the winner.
+    - else
+      Nobody won this game!
 - else
   - if current_user == @game.current_player
     %p
-      - if @game.guesses.by(current_user).count >=3
+      - if @game.final_round?
         %b You must guess the word!
 
     = form_for [@game, @guess] do |g|
@@ -14,6 +19,10 @@
     %p
       %b Hint:
       = @game.word.meaning
+
+    - if @game.bonus_round?
+      %p
+        %b Bonus round!
   - else
     %p
       It's currently the other player's turn.
@@ -31,6 +40,6 @@
           %li
             = guess.letter
             - if guess.hit
-              (correct; +1)
+              (correct; +#{@game.bonus_round? ? 2 : 1})
             - else
-              (incorrect; -1)
+              (incorrect; -#{@game.bonus_round? ? 2 : 1})

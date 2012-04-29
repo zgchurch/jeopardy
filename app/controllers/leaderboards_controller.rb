@@ -1,5 +1,5 @@
 class LeaderboardsController < ApplicationController
   def show
-    @users = User.with_total_scores.order('total_score DESC')
+    @users = User.active.with_total_scores.order('total_score DESC')
   end
 end

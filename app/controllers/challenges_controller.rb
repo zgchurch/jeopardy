@@ -19,7 +19,7 @@ class ChallengesController < ApplicationController
   def update
     @challenge = current_user.challenges.find(params[:id])
     if @challenge.challenger.online?
-      @game = Game.new :users => [@challenge.challenger, @challenge.challengee], :current_player => @challenge.challenger
+      @game = MultiPlayerGame.new :users => [@challenge.challenger, @challenge.challengee], :current_player => @challenge.challenger
 
       if @game.save
         @challenge.destroy
