@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
       current_user.update_attribute :status, 'offline'
       reset_session
       redirect_to root_path
+      return
     end
 
     status = case "#{params[:controller]}##{params[:action]}"
@@ -32,8 +33,8 @@ class ApplicationController < ActionController::Base
 
   def check_active
     if current_user && !current_user.active?
-      current_user.update_attribute :status, 'offline'
       reset_session
+      current_user.update_attribute :status, 'offline'
     end
   end
 end
