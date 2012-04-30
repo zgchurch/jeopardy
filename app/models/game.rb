@@ -60,6 +60,7 @@ class Game < ActiveRecord::Base
       hit = true
     end
     guesses.create! :user => user, :letter => w, :hit => hit
+    update_score_after_guess(user, hit)
     check_complete user
   end
 
