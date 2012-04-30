@@ -2,7 +2,7 @@
 
 - if @game.complete?
   %p
-    This game is complete!
+    This game is complete! The word was #{@game.word}.
     - if @game.winner
       #{@game.winner} was the winner.
     - else
