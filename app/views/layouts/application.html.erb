@@ -14,6 +14,7 @@
     <ul>
       <li><%= link_to "Home (#{current_user.games.reject(&:complete?).count} open games)", root_path %></li>
       <li><%= link_to "Edit profile", edit_user_registration_path %></li>
+	  <li><%= link_to "History", edit_user_registration_path %></li>
       <li><%= link_to "New single-player game", games_path, :method => :post %></li>
       <li><%= link_to "New multi-player game", new_challenge_path %></li>
       <li><%= link_to "Challenges (#{current_user.challenges.count})", challenges_path %></li>
