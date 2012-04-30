@@ -1,0 +1,11 @@
+<h1>History for <%= current_user %></h1>
+<ul>
+<% current_user.games.each do |game|%>
+<li>
+<%=game%>,
+<strong>Points:</strong>
+<%=game.play_for(current_user).score%>
+<%=link_to("details", game)%>
+</li>
+<% end -%>
+</ul>
