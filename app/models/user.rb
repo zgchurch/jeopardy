@@ -44,4 +44,20 @@ class User < ActiveRecord::Base
   def active?
     deleted_at.nil?
   end
+  
+  def wins
+	plays.joins("inner join plays p2 on plays.game_id = p2.game_id and plays.id != p2.id").where("p2.score < plays.score")
+
+  end
+  def losses
+	plays.joins("inner join plays p2 on plays.game_id = p2.game_id and plays.id != p2.id").where("p2.score > plays.score")
+
+  end
+  def draws 
+	plays.joins("inner join plays p2 on plays.game_id = p2.game_id and plays.id != p2.id").where("p2.score = plays.score")
+  end
+  def top_three_letters 
+	guesses.group("letter").order("count(letter) desc").limit(3).to_sentence
+  end
+	
 end

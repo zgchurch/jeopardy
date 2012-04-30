@@ -38,6 +38,11 @@ ActiveRecord::Schema.define(:version => 20120429121600) do
   add_index "games", ["winner_id"], :name => "index_games_on_winner_id"
   add_index "games", ["word_id"], :name => "index_games_on_word_id"
 
+  create_table "games_users", :force => true do |t|
+    t.integer "game_id"
+    t.integer "user_id"
+  end
+
   create_table "guesses", :force => true do |t|
     t.integer  "user_id"
     t.integer  "game_id"

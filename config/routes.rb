@@ -1,4 +1,6 @@
 Jeopardy::Application.routes.draw do
+  get "history" => "history#show"
+
   devise_for :users
 
   namespace :admin do

@@ -1,1 +1,10 @@
-<h1>Analyze <%= @user %><h1>
+<h1>Analyze <%= @user %></h1>
+<ul>
+<li>Total Score: <%=@user.total_score %></li>
+<li>Number of Single Player Games: <%=@user.single_player_games.count %></li>
+<li>Number of Multiplayer Games: <%=@user.multi_player_games.count %></li>
+<li>Number of Wins: <%=@user.wins.count %></li>
+<li>Number of Losses: <%=@user.losses.count %></li>
+<li>Number of Draws: <%=@user.draws.count %></li>
+<li>Top 3 Letters: <%=@user.top_three_letters %></li>
+</ul>
