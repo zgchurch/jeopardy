@@ -28,7 +28,7 @@ class ChallengesController < ApplicationController
         redirect_to challenges_path
       end
     else
-      redirect_to challenges_path, :alert => "Your challenger (#{@challenge.challenger}) is currently in another game. Please try again shortly."
+      redirect_to challenges_path, :alert => "Your challenger (#{@challenge.challenger}) is not currently available to play. Please try again shortly."
     end
   end
 end

@@ -23,7 +23,7 @@ class GuessesController < ApplicationController
   end
 
   def make_guess
-    if @game.guesses.by(current_user).count >=3 || params[:guess][:letter].length > 1
+    if @game.final_round? || params[:guess][:letter].length > 1
       @game.guess_word(current_user, params[:guess][:letter])
     else
       @game.guess(current_user, params[:guess][:letter])
